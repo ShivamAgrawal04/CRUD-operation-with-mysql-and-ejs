@@ -1,0 +1,10 @@
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+.text-danger {
+    color: red;
+    font-size: 18px;
+    margin-top: 10px;
+}

@@ -1,0 +1,75 @@
+<% layout("/layouts/Boilerplate.ejs") %>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 110px);">
+
+        <form class="w-50 needs-validation" method="POST"
+            action="<%= user ? `/api/v1/users/update/${user.id}?_method=PUT` : '/api/v1/users/newUser' %>" novalidate>
+
+            <!-- Hidden input to store the user ID (only used when updating) -->
+
+            <div class="form-floating mb-3">
+                <input type="text" placeholder="Id" class="form-control" id="id" name="id"
+                    value="<%= user?user.id:"" %>" <%=user ? "disabled" :"required" %>>
+                <label for="id">Id</label>
+                <div class="invalid-feedback">
+                    Please Enter Id.
+                </div>
+            </div>
+            <!-- Name Input -->
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="name" id="nameInput" placeholder="Enter Name"
+                    value="<%= user ? user.name : '' %>" <%=user ? "" :'required' %>>
+                <label for="nameInput">Name</label>
+                <div class="invalid-feedback">
+                    Please Enter Name.
+                </div>
+            </div>
+
+            <!-- Email Input -->
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" name="email" id="emailInput" placeholder="Enter Email"
+                    value="<%= user ? user.email : '' %>" <%=user ? "" :"required" %>>
+                <label for="emailInput">Email</label>
+                <div class="invalid-feedback">
+                    Please Enter username.
+                </div>
+            </div>
+
+            <!-- Password Input -->
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" name="password" id="passwordInput"
+                    placeholder="Enter Password" <%=user ? "" :"required" %>>
+                <label for="passwordInput">Password</label>
+                <div class="invalid-feedback">
+                    Please Enter Password.
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <button type="submit" class="btn btn-success">
+                    <%= user ? 'Update' : 'Submit' %>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
